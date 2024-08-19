@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/customer")
 public class CustomerController extends HttpServlet {
@@ -33,19 +34,20 @@ public class CustomerController extends HttpServlet {
         }
     }
 
+    public List<CustomerDto>getAllCustomers(){
+        CustomerDaoImpl customerDao = new CustomerDaoImpl();
+        return customerDao.getAllCustomers(connection);
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
+        List<CustomerDto> allCustomers = getAllCustomers();
         try (var writer = resp.getWriter()){
-            var customerDao = new CustomerDaoImpl();
-           var getCustomer =  customerDao.getCustomer(id,connection);
-            System.out.println(getCustomer);
             resp.setContentType("application/json");
             Jsonb jsonb = JsonbBuilder.create();
-            jsonb.toJson(getCustomer,writer);
-
+            jsonb.toJson(allCustomers,writer);
         }catch (Exception e){
             e.printStackTrace();
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 

@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/item")
 public class ItemController extends HttpServlet {
@@ -30,19 +31,21 @@ public class ItemController extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+    public List<ItemDto>getAllItems(){
+        ItemDaoImpl itemDao = new ItemDaoImpl();
+        return itemDao.getAllItems(connection);
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("code");
-        try (var writer = resp.getWriter()){
-            Jsonb jsonb = JsonbBuilder.create();
-            ItemDaoImpl itemDaoImpl = new ItemDaoImpl();
-            var item = itemDaoImpl.getAll(id,connection);
-            System.out.println(item);
-            jsonb.toJson(item,writer);
-            resp.setContentType("application/json");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+       List<ItemDto> allItems = getAllItems();
+       try (var writer = resp.getWriter()){
+           resp.setContentType("application/json");
+           Jsonb jsonb = JsonbBuilder.create();
+           jsonb.toJson(allItems,writer);
+       }catch (Exception e){
+           e.printStackTrace();
+           resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+       }
     }
 
     @Override
@@ -53,6 +56,7 @@ public class ItemController extends HttpServlet {
         try (var writer = resp.getWriter()){
             Jsonb jsonb = JsonbBuilder.create();
             ItemDto itemDto = jsonb.fromJson(req.getReader(), ItemDto.class);
+            System.out.println(itemDto);
             ItemDaoImpl itemDaoImpl = new ItemDaoImpl();
             boolean saveItem = itemDaoImpl.SaveItem(itemDto,connection);
             if (saveItem){

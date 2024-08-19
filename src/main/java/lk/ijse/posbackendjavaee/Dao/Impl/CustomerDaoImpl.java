@@ -6,12 +6,15 @@ import lk.ijse.posbackendjavaee.Dto.CustomerDto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerDaoImpl implements CustomerDao {
     static String SAVE_CUSTOMER = "INSERT INTO customer (id,name,salary,address) VALUES (?,?,?,?)";
     static String GET_CUSTOMER = "SELECT * FROM customer WHERE id=?";
     static String DELETE_CUSTOMER = "DELETE FROM customer WHERE id=?";
     static String UPDATE_CUSTOMER = "UPDATE customer SET name=?,salary=?,address=? WHERE id=?";
+    static String GET_ALL = "SELECT * FROM customer";
 
     @Override
     public boolean saveCustomer(CustomerDto customerDto, Connection connection) {
@@ -76,5 +79,26 @@ public class CustomerDaoImpl implements CustomerDao {
             e.printStackTrace();
         }
         return true;
+    }
+
+    @Override
+    public List<CustomerDto> getAllCustomers(Connection connection) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<CustomerDto> allCustomers = new ArrayList<>();
+            while (resultSet.next()){
+                CustomerDto customerDto = new CustomerDto();
+                customerDto.setId(resultSet.getString("id"));
+                customerDto.setName(resultSet.getString("name"));
+                customerDto.setSalary(resultSet.getString("salary"));
+                customerDto.setAddress(resultSet.getString("address"));
+                allCustomers.add(customerDto);
+            }
+            return allCustomers;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }
