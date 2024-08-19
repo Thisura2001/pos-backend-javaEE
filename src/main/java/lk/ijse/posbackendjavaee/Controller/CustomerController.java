@@ -79,7 +79,6 @@ public class CustomerController extends HttpServlet {
         try (var writer = resp.getWriter()){
             Jsonb jsonb = JsonbBuilder.create();
             CustomerDto customerDto = jsonb.fromJson(req.getReader(), CustomerDto.class);
-            resp.setContentType("application/json");
             var updateCustomer = customerDaoImpl.update(customerDto,connection);
             if (updateCustomer){
                 writer.write("Customer Update Success!!");
@@ -98,8 +97,7 @@ public class CustomerController extends HttpServlet {
         String id = req.getParameter("id");
         CustomerDaoImpl customerDaoImpl = new CustomerDaoImpl();
         try (var writer = resp.getWriter()){
-            var deleteCustomer = customerDaoImpl.delete(id,connection);
-            resp.setContentType("application/json");
+            boolean deleteCustomer = customerDaoImpl.delete(id,connection);
             if (deleteCustomer){
                 writer.write("Delete Success");
                 resp.setStatus(HttpServletResponse.SC_CREATED);

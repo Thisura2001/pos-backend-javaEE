@@ -77,7 +77,6 @@ public class ItemController extends HttpServlet {
             Jsonb jsonb = JsonbBuilder.create();
             ItemDaoImpl itemDaoImpl = new ItemDaoImpl();
             ItemDto itemDto = jsonb.fromJson(req.getReader(), ItemDto.class);
-            resp.setContentType("application/json");
             boolean UpdateItem = itemDaoImpl.Update(itemDto,connection);
 
             if (UpdateItem){
