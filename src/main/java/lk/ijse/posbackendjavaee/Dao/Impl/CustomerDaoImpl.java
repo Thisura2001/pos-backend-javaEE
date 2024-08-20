@@ -6,6 +6,7 @@ import lk.ijse.posbackendjavaee.Dto.CustomerDto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,19 +87,18 @@ public class CustomerDaoImpl implements CustomerDao {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL);
             ResultSet resultSet = preparedStatement.executeQuery();
-            List<CustomerDto> allCustomers = new ArrayList<>();
+            List<CustomerDto>allCustomer = new ArrayList<>();
             while (resultSet.next()){
                 CustomerDto customerDto = new CustomerDto();
                 customerDto.setId(resultSet.getString("id"));
                 customerDto.setName(resultSet.getString("name"));
                 customerDto.setSalary(resultSet.getString("salary"));
                 customerDto.setAddress(resultSet.getString("address"));
-                allCustomers.add(customerDto);
+                allCustomer.add(customerDto);
             }
-            return allCustomers;
-        }catch (Exception e){
-            e.printStackTrace();
+            return allCustomer;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return null;
     }
 }
