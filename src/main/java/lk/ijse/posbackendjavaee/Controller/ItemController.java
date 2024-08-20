@@ -31,13 +31,10 @@ public class ItemController extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-    public List<ItemDto>getAllItems(){
-        ItemDaoImpl itemDao = new ItemDaoImpl();
-        return itemDao.getAllItems(connection);
-    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       List<ItemDto> allItems = getAllItems();
+        ItemDaoImpl itemDao = new ItemDaoImpl();
+       List<ItemDto> allItems = itemDao.getAllItems(connection);
        try (var writer = resp.getWriter()){
            resp.setContentType("application/json");
            Jsonb jsonb = JsonbBuilder.create();

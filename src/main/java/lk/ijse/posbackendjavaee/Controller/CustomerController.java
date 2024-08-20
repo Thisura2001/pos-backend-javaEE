@@ -33,14 +33,10 @@ public class CustomerController extends HttpServlet {
             e.printStackTrace();
         }
     }
-
-    public List<CustomerDto>getAllCustomers(){
-        CustomerDaoImpl customerDao = new CustomerDaoImpl();
-        return customerDao.getAllCustomers(connection);
-    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<CustomerDto> allCustomers = getAllCustomers();
+        CustomerDaoImpl customerDao = new CustomerDaoImpl();
+        List<CustomerDto> allCustomers = customerDao.getAllCustomers(connection);
         try (var writer = resp.getWriter()){
             resp.setContentType("application/json");
             Jsonb jsonb = JsonbBuilder.create();
