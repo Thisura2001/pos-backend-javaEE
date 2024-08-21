@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lk.ijse.posbackendjavaee.Bo.impl.CustomerBoImpl;
 import lk.ijse.posbackendjavaee.Dao.CustomerDao;
 import lk.ijse.posbackendjavaee.Dao.Impl.CustomerDaoImpl;
 import lk.ijse.posbackendjavaee.Dto.CustomerDto;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/customer")
 public class CustomerController extends HttpServlet {
+    CustomerBoImpl customerBo = new CustomerBoImpl();
     Connection connection;
     @Override
     public void init() throws ServletException {
@@ -35,8 +37,8 @@ public class CustomerController extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CustomerDaoImpl customerDao = new CustomerDaoImpl();
-        List<CustomerDto> allCustomers = customerDao.getAllCustomers(connection);
+        CustomerBoImpl customerBo = new CustomerBoImpl();
+        List<CustomerDto> allCustomers = customerBo.getAllCustomers(connection);
         try (var writer = resp.getWriter()){
             resp.setContentType("application/json");
             Jsonb jsonb = JsonbBuilder.create();
@@ -56,9 +58,7 @@ public class CustomerController extends HttpServlet {
             Jsonb jsonb = JsonbBuilder.create();
             CustomerDto customerDto = jsonb.fromJson(req.getReader(), CustomerDto.class);
             System.out.println(customerDto);
-
-            CustomerDaoImpl customerDao = new CustomerDaoImpl();
-            boolean saveCustomer = customerDao.saveCustomer(customerDto,connection);
+            boolean saveCustomer = customerBo.saveCustomer(customerDto,connection);
             if (saveCustomer){
                 writer.write("Customer Saved!!");
                 resp.setStatus(HttpServletResponse.SC_CREATED);
@@ -71,11 +71,10 @@ public class CustomerController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CustomerDaoImpl customerDaoImpl = new CustomerDaoImpl();
         try (var writer = resp.getWriter()){
             Jsonb jsonb = JsonbBuilder.create();
             CustomerDto customerDto = jsonb.fromJson(req.getReader(), CustomerDto.class);
-            var updateCustomer = customerDaoImpl.update(customerDto,connection);
+            boolean updateCustomer = customerBo.update(customerDto,connection);
             if (updateCustomer){
                 writer.write("Customer Update Success!!");
                 resp.setStatus(HttpServletResponse.SC_ACCEPTED);
@@ -91,9 +90,8 @@ public class CustomerController extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        CustomerDaoImpl customerDaoImpl = new CustomerDaoImpl();
         try (var writer = resp.getWriter()){
-            boolean deleteCustomer = customerDaoImpl.delete(id,connection);
+            boolean deleteCustomer = customerBo.delete(id,connection);
             if (deleteCustomer){
                 writer.write("Delete Success");
                 resp.setStatus(HttpServletResponse.SC_CREATED);

@@ -2,11 +2,11 @@ package lk.ijse.posbackendjavaee.Dao.Impl;
 
 import lk.ijse.posbackendjavaee.Dao.CustomerDao;
 import lk.ijse.posbackendjavaee.Dto.CustomerDto;
+import lk.ijse.posbackendjavaee.Entity.CustomerEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +18,13 @@ public class CustomerDaoImpl implements CustomerDao {
     static String GET_ALL = "SELECT * FROM customer";
 
     @Override
-    public boolean saveCustomer(CustomerDto customerDto, Connection connection) {
+    public boolean saveCustomer(CustomerEntity customerEntity, Connection connection) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SAVE_CUSTOMER);
-            preparedStatement.setString(1, customerDto.getId());
-            preparedStatement.setString(2, customerDto.getName());
-            preparedStatement.setString(3, customerDto.getSalary());
-            preparedStatement.setString(4, customerDto.getAddress());
+            preparedStatement.setString(1, customerEntity.getId());
+            preparedStatement.setString(2, customerEntity.getName());
+            preparedStatement.setString(3, customerEntity.getSalary());
+            preparedStatement.setString(4, customerEntity.getAddress());
 
             return preparedStatement.executeUpdate() > 0;
 
@@ -66,13 +66,13 @@ public class CustomerDaoImpl implements CustomerDao {
         }
 
     @Override
-    public boolean update(CustomerDto customerDto, Connection connection) {
+    public boolean update(CustomerEntity customerEntity, Connection connection) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CUSTOMER);
-            preparedStatement.setString(1,customerDto.getName());
-            preparedStatement.setString(2,customerDto.getSalary());
-            preparedStatement.setString(3,customerDto.getAddress());
-            preparedStatement.setString(4,customerDto.getId());
+            preparedStatement.setString(1,customerEntity.getName());
+            preparedStatement.setString(2,customerEntity.getSalary());
+            preparedStatement.setString(3,customerEntity.getAddress());
+            preparedStatement.setString(4,customerEntity.getId());
 
             return preparedStatement.executeUpdate()>0;
 
@@ -83,22 +83,22 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public List<CustomerDto> getAllCustomers(Connection connection) {
+    public List<CustomerEntity> getAllCustomers(Connection connection) {
+        List<CustomerEntity>customerEntities = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL);
             ResultSet resultSet = preparedStatement.executeQuery();
-            List<CustomerDto>allCustomer = new ArrayList<>();
             while (resultSet.next()){
-                CustomerDto customerDto = new CustomerDto();
-                customerDto.setId(resultSet.getString("id"));
-                customerDto.setName(resultSet.getString("name"));
-                customerDto.setSalary(resultSet.getString("salary"));
-                customerDto.setAddress(resultSet.getString("address"));
-                allCustomer.add(customerDto);
+                CustomerEntity customerEntity = new CustomerEntity();
+                customerEntity.setId(resultSet.getString("id"));
+                customerEntity.setName(resultSet.getString("name"));
+                customerEntity.setSalary(resultSet.getString("salary"));
+                customerEntity.setAddress(resultSet.getString("address"));
+                customerEntities.add(customerEntity);
             }
-            return allCustomer;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        }catch (Exception e){
+            e.printStackTrace();
         }
+        return customerEntities;
     }
 }
