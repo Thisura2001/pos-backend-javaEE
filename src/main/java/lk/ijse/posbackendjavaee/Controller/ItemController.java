@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lk.ijse.posbackendjavaee.Bo.impl.ItemBoImpl;
 import lk.ijse.posbackendjavaee.Dao.Impl.ItemDaoImpl;
 import lk.ijse.posbackendjavaee.Dto.ItemDto;
 
@@ -20,6 +21,7 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/item")
 public class ItemController extends HttpServlet {
+    ItemBoImpl itemBo =new ItemBoImpl();
     Connection connection;
     @Override
     public void init() throws ServletException {
@@ -33,8 +35,7 @@ public class ItemController extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ItemDaoImpl itemDao = new ItemDaoImpl();
-       List<ItemDto> allItems = itemDao.getAllItems(connection);
+       List<ItemDto> allItems = itemBo.getAllItems(connection);
        try (var writer = resp.getWriter()){
            resp.setContentType("application/json");
            Jsonb jsonb = JsonbBuilder.create();
@@ -54,8 +55,7 @@ public class ItemController extends HttpServlet {
             Jsonb jsonb = JsonbBuilder.create();
             ItemDto itemDto = jsonb.fromJson(req.getReader(), ItemDto.class);
             System.out.println(itemDto);
-            ItemDaoImpl itemDaoImpl = new ItemDaoImpl();
-            boolean saveItem = itemDaoImpl.SaveItem(itemDto,connection);
+            boolean saveItem = itemBo.SaveItem(itemDto,connection);
             if (saveItem){
                 writer.write("item Saved Success");
                 resp.setStatus(HttpServletResponse.SC_CREATED);
@@ -72,9 +72,8 @@ public class ItemController extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try(var writer = resp.getWriter()) {
             Jsonb jsonb = JsonbBuilder.create();
-            ItemDaoImpl itemDaoImpl = new ItemDaoImpl();
             ItemDto itemDto = jsonb.fromJson(req.getReader(), ItemDto.class);
-            boolean UpdateItem = itemDaoImpl.Update(itemDto,connection);
+            boolean UpdateItem = itemBo.Update(itemDto,connection);
 
             if (UpdateItem){
                 writer.write("Update SuccessFull!!");
@@ -92,8 +91,7 @@ public class ItemController extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String code = req.getParameter("code");
         try (var writer = resp.getWriter()){
-            ItemDaoImpl itemDaoImpl = new ItemDaoImpl();
-            boolean deleteItem = itemDaoImpl.deleteItem(code,connection);
+            boolean deleteItem = itemBo.deleteItem(code,connection);
             if (deleteItem){
                 writer.write("Delete success");
                 resp.setStatus(HttpServletResponse.SC_ACCEPTED);
