@@ -2,7 +2,7 @@ package lk.ijse.posbackendjavaee.Util;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class OrderId {
+public class OrderIdGenerator {
     private static final AtomicInteger orderIdCounter = new AtomicInteger(1); // Start at 1
 
     public String generateOrderId() {

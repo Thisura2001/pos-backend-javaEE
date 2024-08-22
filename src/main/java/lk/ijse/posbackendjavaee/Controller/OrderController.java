@@ -5,7 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lk.ijse.posbackendjavaee.Util.OrderId;
+import lk.ijse.posbackendjavaee.Util.OrderIdGenerator;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,14 +14,14 @@ import java.io.PrintWriter;
 public class OrderController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private final OrderId orderIdGenerator = new OrderId();
+    private final OrderIdGenerator orderIdGenerator = new OrderIdGenerator();
     @Override
     public void init() throws ServletException {
         super.init();
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Generate a new orderId
+        // Assuming 'orderIdGenerator' is an instance of a class like the one we discussed earlier
         String orderId = orderIdGenerator.generateOrderId();
 
         // Set the response content type to JSON
@@ -33,6 +33,7 @@ public class OrderController extends HttpServlet {
         out.print("{\"orderId\": \"" + orderId + "\"}");
         out.flush();
     }
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

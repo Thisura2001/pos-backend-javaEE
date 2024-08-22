@@ -35,4 +35,10 @@ public class ItemBoImpl implements ItemBo {
     public boolean deleteItem(String code, Connection connection) {
         return itemDao.deleteItem(code,connection);
     }
+
+    @Override
+    public ItemDto getAll(String id, Connection connection) {
+        return itemDao.getAll(id,connection);
+    }
+
 }

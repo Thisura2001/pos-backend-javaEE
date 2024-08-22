@@ -7,12 +7,14 @@ import lk.ijse.posbackendjavaee.Entity.ItemEntity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public final class ItemDaoImpl implements ItemDao {
     static String SAVE_ITEM = "INSERT INTO item (code,itemName,price,qty) VALUES (?,?,?,?)";
-    static String GET_ITEM = "SELECT * FROM item WHERE code=?";
+    static String GET_ITEM = "SELECT code, itemName, price, qty FROM item WHERE code = ?";
+
     static String GET_ALL = "SELECT * FROM item";
     static String DELETE_ITEM = "DELETE FROM item WHERE code=?";
     static String UPDATE_ITEM = "UPDATE item SET itemName=?,price=?,qty=? WHERE code=?";
@@ -99,4 +101,23 @@ public final class ItemDaoImpl implements ItemDao {
         }
         return null;
     }
+
+//    @Override
+//    public ItemDto getItemByCode(String itemCode, Connection connection) {
+//        try {
+//            PreparedStatement preparedStatement = connection.prepareStatement(GET_ITEM);
+//            preparedStatement.setString(1,itemCode);
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            ItemDto itemDto = new ItemDto();
+//            while (resultSet.next()){
+//                itemDto.setCode(resultSet.getString("code"));
+//                itemDto.setItemName(resultSet.getString("itemName"));
+//                itemDto.setPrice(resultSet.getString("price"));
+//                itemDto.setQty(resultSet.getString("qty"));
+//            }
+//            return itemDto;
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }
