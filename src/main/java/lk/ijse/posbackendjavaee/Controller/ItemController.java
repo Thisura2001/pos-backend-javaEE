@@ -83,7 +83,6 @@ public class ItemController extends HttpServlet {
             e.printStackTrace();
         }
     }
-
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try(var writer = resp.getWriter()) {
