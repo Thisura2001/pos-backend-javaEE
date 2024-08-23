@@ -11,9 +11,13 @@ import lk.ijse.posbackendjavaee.Bo.impl.OrderBoImpl;
 import lk.ijse.posbackendjavaee.Dto.OrderDto;
 import lk.ijse.posbackendjavaee.Util.OrderIdGenerator;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 @WebServlet(urlPatterns = "/orders")
 public class OrderController extends HttpServlet {
@@ -24,22 +28,28 @@ public class OrderController extends HttpServlet {
    OrderBoImpl orderBo = new OrderBoImpl();
     @Override
     public void init() throws ServletException {
-        super.init();
+        try {
+            InitialContext initialContext = new InitialContext();
+            DataSource lookup = (DataSource) initialContext.lookup("java:comp/env/jdbc/stuRegistration");
+            this.connection = lookup.getConnection();
+        } catch (NamingException | SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Assuming 'orderIdGenerator' is an instance of a class like the one we discussed earlier
-        String orderId = orderIdGenerator.generateOrderId();
-
-        // Set the response content type to JSON
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-
-        // Write the JSON response
-        PrintWriter out = resp.getWriter();
-        out.print("{\"orderId\": \"" + orderId + "\"}");
-        out.flush();
-    }
+//    @Override
+//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        // Assuming 'orderIdGenerator' is an instance of a class like the one we discussed earlier
+//        String orderId = orderIdGenerator.generateOrderId();
+//
+//        // Set the response content type to JSON
+//        resp.setContentType("application/json");
+//        resp.setCharacterEncoding("UTF-8");
+//
+//        // Write the JSON response
+//        PrintWriter out = resp.getWriter();
+//        out.print("{\"orderId\": \"" + orderId + "\"}");
+//        out.flush();
+//    }
 
 
     @Override

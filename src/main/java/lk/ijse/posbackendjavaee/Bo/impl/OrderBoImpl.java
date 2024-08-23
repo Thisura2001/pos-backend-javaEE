@@ -12,6 +12,6 @@ public class OrderBoImpl implements orderBo {
 
     @Override
     public boolean SaveOrder(OrderDto orderDto, Connection connection) {
-        return orderDao.saveOrder(new OrderEntity(orderDto.getOrderId(),orderDto.getOrderItems(),orderDto.getNetTotal(),orderDto.getDiscount(),orderDto.getFinalTotal()),connection);
+        return orderDao.saveOrder(new OrderEntity(orderDto.getOrderId(),orderDto.getAmount(),orderDto.getNetTotal(),orderDto.getDiscount(),orderDto.getFinalTotal()),connection);
     }
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class OrderEntity {
     private String orderId;
-    private String orderItems;
+    private String amount;
     private String netTotal;
     private String discount;
     private String finalTotal;
