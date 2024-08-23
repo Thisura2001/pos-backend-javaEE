@@ -35,12 +35,12 @@ public class itemService extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("code");
         try (var writer = resp.getWriter()){
+            resp.setContentType("application/json");
             Jsonb jsonb = JsonbBuilder.create();
             ItemBoImpl itemBo = new ItemBoImpl();
             var item = itemBo.getAll(id,connection);
             System.out.println(item);
             jsonb.toJson(item,writer);
-//            resp.setContentType("application/json");
         }catch (Exception e){
             e.printStackTrace();
         }

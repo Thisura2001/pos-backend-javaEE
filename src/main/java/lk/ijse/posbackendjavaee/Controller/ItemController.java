@@ -35,29 +35,14 @@ public class ItemController extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/json");
-
-        String itemCode = req.getParameter("itemCode");
-
-        try (var writer = resp.getWriter()) {
+        List<ItemDto> allItems = itemBo.getAllItems(connection);
+        try (var writer = resp.getWriter()){
+            resp.setContentType("application/json");
             Jsonb jsonb = JsonbBuilder.create();
-
-            if (itemCode != null && !itemCode.isEmpty()) {
-                // Fetch and return the specific item
-                ItemDto item = itemBo.getAll(itemCode, connection);
-                if (item != null) {
-                    jsonb.toJson(item, writer);
-                } else {
-                    resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Item not found");
-                }
-            } else {
-                // Fetch and return all items
-                List<ItemDto> allItems = itemBo.getAllItems(connection);
-                jsonb.toJson(allItems, writer);
-            }
-        } catch (Exception e) {
+            jsonb.toJson(allItems,writer);
+        }catch (Exception e){
             e.printStackTrace();
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error processing request");
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
