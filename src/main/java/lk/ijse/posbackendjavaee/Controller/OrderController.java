@@ -1,5 +1,7 @@
 package lk.ijse.posbackendjavaee.Controller;
 
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.servlet.ServletException;
@@ -9,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lk.ijse.posbackendjavaee.Bo.impl.OrderBoImpl;
 import lk.ijse.posbackendjavaee.Dto.OrderDto;
-import lk.ijse.posbackendjavaee.Util.OrderIdGenerator;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -17,14 +18,14 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @WebServlet(urlPatterns = "/orders")
 public class OrderController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     Connection connection;
-
-    private final OrderIdGenerator orderIdGenerator = new OrderIdGenerator();
    OrderBoImpl orderBo = new OrderBoImpl();
     @Override
     public void init() throws ServletException {
@@ -36,20 +37,44 @@ public class OrderController extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-//    @Override
-//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        // Assuming 'orderIdGenerator' is an instance of a class like the one we discussed earlier
-//        String orderId = orderIdGenerator.generateOrderId();
-//
-//        // Set the response content type to JSON
-//        resp.setContentType("application/json");
-//        resp.setCharacterEncoding("UTF-8");
-//
-//        // Write the JSON response
-//        PrintWriter out = resp.getWriter();
-//        out.print("{\"orderId\": \"" + orderId + "\"}");
-//        out.flush();
-//    }
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String newOrderId = generateNewOrderId();
+        resp.setContentType("application/json");
+        try (PrintWriter writer = resp.getWriter()) {
+            JsonObject responseJson = Json.createObjectBuilder()
+                    .add("orderId", newOrderId)
+                    .build();
+            writer.write(responseJson.toString());
+        }
+    }
+
+    private String generateNewOrderId() {
+        // Fetch the latest order ID from the database and increment it
+        String lastOrderId = getLastOrderIdFromDatabase();
+        int newIdNumber = Integer.parseInt(lastOrderId.replace("OR-", "")) + 1;
+        return "OR-" + String.format("%03d", newIdNumber);
+    }
+
+    private String getLastOrderIdFromDatabase() {
+        String lastOrderId = "OR-000"; // Default value if no orders exist
+
+        // Query to get the last order ID
+        String query = "SELECT orderId FROM Orders ORDER BY orderId DESC LIMIT 1";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                lastOrderId = resultSet.getString("orderId");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lastOrderId;
+    }
+
 
 
     @Override
