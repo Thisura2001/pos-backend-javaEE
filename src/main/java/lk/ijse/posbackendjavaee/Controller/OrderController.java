@@ -1,20 +1,27 @@
 package lk.ijse.posbackendjavaee.Controller;
 
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lk.ijse.posbackendjavaee.Bo.impl.OrderBoImpl;
+import lk.ijse.posbackendjavaee.Dto.OrderDto;
 import lk.ijse.posbackendjavaee.Util.OrderIdGenerator;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 
 @WebServlet(urlPatterns = "/orders")
 public class OrderController extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    Connection connection;
 
     private final OrderIdGenerator orderIdGenerator = new OrderIdGenerator();
+   OrderBoImpl orderBo = new OrderBoImpl();
     @Override
     public void init() throws ServletException {
         super.init();
@@ -37,7 +44,24 @@ public class OrderController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        if (!req.getContentType().startsWith("application/json")||req.getContentType()==null) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        try (var writer = resp.getWriter()){
+            Jsonb jsonb = JsonbBuilder.create();
+            OrderDto orderDto = jsonb.fromJson(req.getReader(), OrderDto.class);
+            System.out.println(orderDto);
+            boolean saveOrder = orderBo.SaveOrder(orderDto,connection);
+            if (saveOrder){
+                writer.write("Order saved");
+                resp.setStatus(HttpServletResponse.SC_CREATED);
+            }else {
+                writer.write("Error saving Order");
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
