@@ -11,6 +11,8 @@ import lk.ijse.posbackendjavaee.Bo.impl.CustomerBoImpl;
 import lk.ijse.posbackendjavaee.Dao.CustomerDao;
 import lk.ijse.posbackendjavaee.Dao.Impl.CustomerDaoImpl;
 import lk.ijse.posbackendjavaee.Dto.CustomerDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -23,6 +25,7 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/customer")
 public class CustomerController extends HttpServlet {
+    static Logger logger = LoggerFactory.getLogger(CustomerController.class);
     CustomerBoImpl customerBo = new CustomerBoImpl();
     Connection connection;
     @Override
@@ -40,6 +43,7 @@ public class CustomerController extends HttpServlet {
         CustomerBoImpl customerBo = new CustomerBoImpl();
         List<CustomerDto> allCustomers = customerBo.getAllCustomers(connection);
         try (var writer = resp.getWriter()){
+            logger.info("get all customer");
             resp.setContentType("application/json");
             Jsonb jsonb = JsonbBuilder.create();
             jsonb.toJson(allCustomers,writer);
@@ -55,6 +59,7 @@ public class CustomerController extends HttpServlet {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
         try (var writer = resp.getWriter()){
+            logger.info("Save customer");
             Jsonb jsonb = JsonbBuilder.create();
             CustomerDto customerDto = jsonb.fromJson(req.getReader(), CustomerDto.class);
             System.out.println(customerDto);
@@ -72,6 +77,7 @@ public class CustomerController extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (var writer = resp.getWriter()){
+            logger.info("update customer");
             Jsonb jsonb = JsonbBuilder.create();
             CustomerDto customerDto = jsonb.fromJson(req.getReader(), CustomerDto.class);
             boolean updateCustomer = customerBo.update(customerDto,connection);
@@ -91,6 +97,7 @@ public class CustomerController extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
         try (var writer = resp.getWriter()){
+            logger.info("Delete customer");
             boolean deleteCustomer = customerBo.delete(id,connection);
             if (deleteCustomer){
                 writer.write("Delete Success");

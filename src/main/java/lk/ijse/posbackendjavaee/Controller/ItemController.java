@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lk.ijse.posbackendjavaee.Bo.impl.ItemBoImpl;
 import lk.ijse.posbackendjavaee.Dao.Impl.ItemDaoImpl;
 import lk.ijse.posbackendjavaee.Dto.ItemDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -21,6 +23,7 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/item")
 public class ItemController extends HttpServlet {
+    Logger logger = LoggerFactory.getLogger(ItemController.class);
     ItemBoImpl itemBo =new ItemBoImpl();
     Connection connection;
     @Override
@@ -37,6 +40,7 @@ public class ItemController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<ItemDto> allItems = itemBo.getAllItems(connection);
         try (var writer = resp.getWriter()){
+            logger.info("get all Items");
             resp.setContentType("application/json");
             Jsonb jsonb = JsonbBuilder.create();
             jsonb.toJson(allItems,writer);
@@ -53,6 +57,7 @@ public class ItemController extends HttpServlet {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
         try (var writer = resp.getWriter()){
+            logger.info("Save Items");
             Jsonb jsonb = JsonbBuilder.create();
             ItemDto itemDto = jsonb.fromJson(req.getReader(), ItemDto.class);
             System.out.println(itemDto);
@@ -71,6 +76,7 @@ public class ItemController extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try(var writer = resp.getWriter()) {
+            logger.info("Update Items");
             Jsonb jsonb = JsonbBuilder.create();
             ItemDto itemDto = jsonb.fromJson(req.getReader(), ItemDto.class);
             boolean UpdateItem = itemBo.Update(itemDto,connection);
@@ -91,6 +97,7 @@ public class ItemController extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String code = req.getParameter("code");
         try (var writer = resp.getWriter()){
+            logger.info("Delete Items");
             boolean deleteItem = itemBo.deleteItem(code,connection);
             if (deleteItem){
                 writer.write("Delete success");

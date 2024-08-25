@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lk.ijse.posbackendjavaee.Bo.impl.OrderBoImpl;
 import lk.ijse.posbackendjavaee.Dto.OrderDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -25,6 +27,7 @@ import java.sql.SQLException;
 @WebServlet(urlPatterns = "/orders")
 public class OrderController extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    Logger logger = LoggerFactory.getLogger(OrderController.class);
     Connection connection;
    OrderBoImpl orderBo = new OrderBoImpl();
     @Override
@@ -83,6 +86,7 @@ public class OrderController extends HttpServlet {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
         try (var writer = resp.getWriter()){
+            logger.info("Save Order");
             Jsonb jsonb = JsonbBuilder.create();
             OrderDto orderDto = jsonb.fromJson(req.getReader(), OrderDto.class);
             System.out.println(orderDto);
