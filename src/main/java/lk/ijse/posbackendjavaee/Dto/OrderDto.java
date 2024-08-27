@@ -17,4 +17,6 @@ public class OrderDto {
     private String netTotal;
     private String discount;
     private String finalTotal;
+
+    private List<OrderDetailDto> orderDetails = new ArrayList<>();
 }

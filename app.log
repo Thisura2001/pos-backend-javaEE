@@ -124,3 +124,31 @@
 20:45:47.497 [http-nio-8080-exec-6] INFO  l.i.p.Controller.CustomerController -- get all customer
 20:45:47.498 [http-nio-8080-exec-7] INFO  l.i.p.Controller.ItemController -- get all Items
 20:45:55.925 [http-nio-8080-exec-5] INFO  l.i.p.Controller.OrderController -- Save Order
+21:19:10.786 [http-nio-8080-exec-4] INFO  l.i.p.Controller.CustomerController -- get all customer
+21:19:10.786 [http-nio-8080-exec-5] INFO  l.i.p.Controller.ItemController -- get all Items
+21:19:10.914 [http-nio-8080-exec-7] INFO  l.i.p.Controller.CustomerController -- get all customer
+21:19:10.914 [http-nio-8080-exec-6] INFO  l.i.p.Controller.ItemController -- get all Items
+21:19:18.866 [http-nio-8080-exec-4] INFO  l.i.p.Controller.OrderController -- Save Order
+21:35:13.569 [http-nio-8080-exec-3] INFO  l.i.p.Controller.ItemController -- get all Items
+21:35:13.569 [http-nio-8080-exec-5] INFO  l.i.p.Controller.CustomerController -- get all customer
+21:35:13.685 [http-nio-8080-exec-7] INFO  l.i.p.Controller.ItemController -- get all Items
+21:35:13.685 [http-nio-8080-exec-6] INFO  l.i.p.Controller.CustomerController -- get all customer
+21:35:21.112 [http-nio-8080-exec-10] INFO  l.i.p.Controller.OrderController -- Save Order
+22:02:11.041 [http-nio-8080-exec-4] INFO  l.i.p.Controller.CustomerController -- get all customer
+22:02:11.041 [http-nio-8080-exec-5] INFO  l.i.p.Controller.ItemController -- get all Items
+22:02:11.161 [http-nio-8080-exec-7] INFO  l.i.p.Controller.ItemController -- get all Items
+22:02:11.161 [http-nio-8080-exec-6] INFO  l.i.p.Controller.CustomerController -- get all customer
+22:02:19.447 [http-nio-8080-exec-5] INFO  l.i.p.Controller.OrderController -- Save Order
+22:14:25.971 [http-nio-8080-exec-5] INFO  l.i.p.Controller.ItemController -- get all Items
+22:14:25.971 [http-nio-8080-exec-4] INFO  l.i.p.Controller.CustomerController -- get all customer
+22:14:26.085 [http-nio-8080-exec-7] INFO  l.i.p.Controller.CustomerController -- get all customer
+22:14:26.085 [http-nio-8080-exec-6] INFO  l.i.p.Controller.ItemController -- get all Items
+22:14:31.198 [http-nio-8080-exec-10] INFO  l.i.p.Controller.OrderController -- Save Order
+22:27:11.113 [http-nio-8080-exec-8] INFO  l.i.p.Controller.CustomerController -- get all customer
+22:27:11.113 [http-nio-8080-exec-9] INFO  l.i.p.Controller.ItemController -- get all Items
+22:27:11.156 [http-nio-8080-exec-3] INFO  l.i.p.Controller.CustomerController -- get all customer
+22:27:11.156 [http-nio-8080-exec-2] INFO  l.i.p.Controller.ItemController -- get all Items
+22:29:50.986 [http-nio-8080-exec-8] INFO  l.i.p.Controller.ItemController -- get all Items
+22:29:50.986 [http-nio-8080-exec-10] INFO  l.i.p.Controller.CustomerController -- get all customer
+22:29:51.001 [http-nio-8080-exec-3] INFO  l.i.p.Controller.CustomerController -- get all customer
+22:29:51.001 [http-nio-8080-exec-2] INFO  l.i.p.Controller.ItemController -- get all Items
