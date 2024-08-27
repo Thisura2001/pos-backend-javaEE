@@ -1,4 +1,4 @@
 package lk.ijse.posbackendjavaee.Bo;
 
-public interface orderDetailBo {
+public interface OrderDetailBo {
 }
