@@ -1,6 +1,6 @@
 package lk.ijse.posbackendjavaee.Bo.impl;
 
-import lk.ijse.posbackendjavaee.Bo.ItemBo;
+import lk.ijse.posbackendjavaee.Bo.Custom.ItemBo;
 import lk.ijse.posbackendjavaee.Dao.Impl.ItemDaoImpl;
 import lk.ijse.posbackendjavaee.Dto.ItemDto;
 import lk.ijse.posbackendjavaee.Entity.ItemEntity;

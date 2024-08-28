@@ -1,4 +1,4 @@
-package lk.ijse.posbackendjavaee.Bo;
+package lk.ijse.posbackendjavaee.Bo.Custom;
 
 import lk.ijse.posbackendjavaee.Dto.OrderDto;
 import lk.ijse.posbackendjavaee.Dto.OrderRequest;

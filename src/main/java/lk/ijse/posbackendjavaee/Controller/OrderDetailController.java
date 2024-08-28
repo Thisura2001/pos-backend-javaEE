@@ -7,9 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lk.ijse.posbackendjavaee.Bo.OrderDetailBo;
 import lk.ijse.posbackendjavaee.Bo.impl.OrderDetailBoImpl;
-import lk.ijse.posbackendjavaee.Dao.Impl.OrderDetailDaoImpl;
 import lk.ijse.posbackendjavaee.Dto.OrderDetailDto;
 
 import javax.naming.InitialContext;

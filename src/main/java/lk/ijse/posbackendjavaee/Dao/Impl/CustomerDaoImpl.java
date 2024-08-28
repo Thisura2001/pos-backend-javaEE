@@ -1,6 +1,6 @@
 package lk.ijse.posbackendjavaee.Dao.Impl;
 
-import lk.ijse.posbackendjavaee.Dao.CustomerDao;
+import lk.ijse.posbackendjavaee.Dao.Custom.CustomerDao;
 import lk.ijse.posbackendjavaee.Dto.CustomerDto;
 import lk.ijse.posbackendjavaee.Entity.CustomerEntity;
 
@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import lk.ijse.posbackendjavaee.Dao.DAOFactory;
 
 public class CustomerDaoImpl implements CustomerDao {
     static String SAVE_CUSTOMER = "INSERT INTO customer (id,name,salary,address) VALUES (?,?,?,?)";

@@ -1,6 +1,6 @@
 package lk.ijse.posbackendjavaee.Bo.impl;
 
-import lk.ijse.posbackendjavaee.Bo.OrderDetailBo;
+import lk.ijse.posbackendjavaee.Bo.Custom.OrderDetailBo;
 import lk.ijse.posbackendjavaee.Dao.Impl.OrderDetailDaoImpl;
 import lk.ijse.posbackendjavaee.Dto.OrderDetailDto;
 import lk.ijse.posbackendjavaee.Entity.OrderDetailEntity;

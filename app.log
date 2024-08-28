@@ -538,3 +538,42 @@
 22:52:33.475 [http-nio-8080-exec-1] INFO  l.i.p.Controller.OrderController -- Save Order and Order Details
 22:52:33.506 [http-nio-8080-exec-3] INFO  l.i.p.Controller.CustomerController -- Save OrderDetail
 22:52:33.522 [http-nio-8080-exec-3] INFO  l.i.p.Controller.OrderController -- Order detail saved successfully.
+23:01:24.687 [http-nio-8080-exec-3] INFO  l.i.p.Controller.ItemController -- get all Items
+23:01:24.687 [http-nio-8080-exec-5] INFO  l.i.p.Controller.CustomerController -- get all customer
+23:01:24.808 [http-nio-8080-exec-7] INFO  l.i.p.Controller.ItemController -- get all Items
+23:01:24.808 [http-nio-8080-exec-6] INFO  l.i.p.Controller.CustomerController -- get all customer
+23:01:33.715 [http-nio-8080-exec-3] INFO  l.i.p.Controller.OrderController -- Save Order and Order Details
+23:01:33.780 [http-nio-8080-exec-7] INFO  l.i.p.Controller.CustomerController -- Save OrderDetail
+23:01:33.780 [http-nio-8080-exec-7] INFO  l.i.p.Controller.OrderController -- Order detail saved successfully.
+23:19:39.438 [http-nio-8080-exec-1] INFO  l.i.p.Controller.ItemController -- get all Items
+23:19:39.438 [http-nio-8080-exec-4] INFO  l.i.p.Controller.CustomerController -- get all customer
+23:19:39.622 [http-nio-8080-exec-6] INFO  l.i.p.Controller.ItemController -- get all Items
+23:19:39.622 [http-nio-8080-exec-7] INFO  l.i.p.Controller.CustomerController -- get all customer
+23:19:55.995 [http-nio-8080-exec-1] INFO  l.i.p.Controller.CustomerController -- Save customer
+23:19:56.045 [http-nio-8080-exec-4] INFO  l.i.p.Controller.CustomerController -- get all customer
+23:20:00.312 [http-nio-8080-exec-7] INFO  l.i.p.Controller.CustomerController -- Delete customer
+23:20:00.328 [http-nio-8080-exec-10] INFO  l.i.p.Controller.CustomerController -- get all customer
+23:20:14.548 [http-nio-8080-exec-5] INFO  l.i.p.Controller.OrderController -- Save Order and Order Details
+23:20:14.578 [http-nio-8080-exec-4] INFO  l.i.p.Controller.CustomerController -- Save OrderDetail
+23:20:14.590 [http-nio-8080-exec-4] INFO  l.i.p.Controller.OrderController -- Order detail saved successfully.
+23:22:10.865 [http-nio-8080-exec-6] INFO  l.i.p.Controller.ItemController -- get all Items
+23:22:10.865 [http-nio-8080-exec-5] INFO  l.i.p.Controller.CustomerController -- get all customer
+23:22:10.874 [http-nio-8080-exec-8] INFO  l.i.p.Controller.CustomerController -- get all customer
+23:22:10.874 [http-nio-8080-exec-7] INFO  l.i.p.Controller.ItemController -- get all Items
+23:22:17.977 [http-nio-8080-exec-7] INFO  l.i.p.Controller.OrderController -- Save Order and Order Details
+23:22:18.042 [http-nio-8080-exec-4] INFO  l.i.p.Controller.CustomerController -- Save OrderDetail
+23:22:18.058 [http-nio-8080-exec-4] INFO  l.i.p.Controller.OrderController -- Order detail saved successfully.
+23:23:17.663 [http-nio-8080-exec-3] INFO  l.i.p.Controller.ItemController -- get all Items
+23:23:17.663 [http-nio-8080-exec-5] INFO  l.i.p.Controller.CustomerController -- get all customer
+23:23:17.776 [http-nio-8080-exec-6] INFO  l.i.p.Controller.CustomerController -- get all customer
+23:23:17.776 [http-nio-8080-exec-7] INFO  l.i.p.Controller.ItemController -- get all Items
+23:23:23.505 [http-nio-8080-exec-10] INFO  l.i.p.Controller.OrderController -- Save Order and Order Details
+23:23:23.574 [http-nio-8080-exec-2] INFO  l.i.p.Controller.CustomerController -- Save OrderDetail
+23:23:23.591 [http-nio-8080-exec-2] INFO  l.i.p.Controller.OrderController -- Order detail saved successfully.
+23:33:56.506 [http-nio-8080-exec-5] INFO  l.i.p.Controller.ItemController -- get all Items
+23:33:56.506 [http-nio-8080-exec-4] INFO  l.i.p.Controller.CustomerController -- get all customer
+23:33:56.630 [http-nio-8080-exec-7] INFO  l.i.p.Controller.ItemController -- get all Items
+23:33:56.631 [http-nio-8080-exec-6] INFO  l.i.p.Controller.CustomerController -- get all customer
+23:34:07.025 [http-nio-8080-exec-4] INFO  l.i.p.Controller.OrderController -- Save Order and Order Details
+23:34:07.088 [http-nio-8080-exec-7] INFO  l.i.p.Controller.CustomerController -- Save OrderDetail
+23:34:07.098 [http-nio-8080-exec-7] INFO  l.i.p.Controller.OrderController -- Order detail saved successfully.

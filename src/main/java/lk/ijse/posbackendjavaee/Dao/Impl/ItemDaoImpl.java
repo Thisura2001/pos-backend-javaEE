@@ -1,13 +1,12 @@
 package lk.ijse.posbackendjavaee.Dao.Impl;
 
-import lk.ijse.posbackendjavaee.Dao.ItemDao;
+import lk.ijse.posbackendjavaee.Dao.Custom.ItemDao;
 import lk.ijse.posbackendjavaee.Dto.ItemDto;
 import lk.ijse.posbackendjavaee.Entity.ItemEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lk.ijse.posbackendjavaee.Bo.impl.ItemBoImpl;
-import lk.ijse.posbackendjavaee.Dao.Impl.ItemDaoImpl;
 import lk.ijse.posbackendjavaee.Dto.ItemDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
 package lk.ijse.posbackendjavaee.Bo.impl;
 
 import jakarta.transaction.Transactional;
-import lk.ijse.posbackendjavaee.Bo.orderBo;
+import lk.ijse.posbackendjavaee.Bo.Custom.orderBo;
 import lk.ijse.posbackendjavaee.Dao.Impl.OrderDaoImpl;
 import lk.ijse.posbackendjavaee.Dao.Impl.OrderDetailDaoImpl;
 import lk.ijse.posbackendjavaee.Dto.OrderDetailDto;
@@ -11,7 +11,6 @@ import lk.ijse.posbackendjavaee.Entity.OrderDetailEntity;
 import lk.ijse.posbackendjavaee.Entity.OrderEntity;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public class OrderBoImpl implements orderBo {
     OrderDaoImpl orderDao = new OrderDaoImpl();
@@ -37,12 +36,13 @@ public class OrderBoImpl implements orderBo {
             // If the order is saved, save the order details
             if (orderSaved) {
                 return new OrderDetailDaoImpl().saveOrderDetail(new OrderDetailEntity(
-                                orderRequest.getOrderDetails().getOrderId(),
-                                orderRequest.getOrderDetails().getItemCode(),
-                                orderRequest.getOrderDetails().getQty(),
-                                orderRequest.getOrderDetails().getUnitPrice(),
-                                orderRequest.getOrderDetails().getCustomerId(),
-                                orderRequest.getOrderDetails().getItemName()), connection);
+                        orderRequest.getOrderDetails().getOrderId(),
+                        orderRequest.getOrderDetails().getItemCode(),
+                        orderRequest.getOrderDetails().getQty(),
+                        orderRequest.getOrderDetails().getUnitPrice(),
+                        orderRequest.getOrderDetails().getCustomerId(),
+                        orderRequest.getOrderDetails().getItemName()), connection);
+
 
             }
         } catch (Exception e) {

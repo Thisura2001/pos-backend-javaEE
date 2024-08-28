@@ -1,13 +1,11 @@
 
 package lk.ijse.posbackendjavaee.Dao.Impl;
 
-import lk.ijse.posbackendjavaee.Dao.OrderDao;
-import lk.ijse.posbackendjavaee.Dto.OrderDetailDto;
+import lk.ijse.posbackendjavaee.Dao.Custom.OrderDao;
 import lk.ijse.posbackendjavaee.Entity.OrderEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class OrderDaoImpl implements OrderDao {
     static String SAVE_ORDER = "INSERT INTO orders (orderId,amount,netTotal,discount,finalTotal) VALUES (?,?,?,?,?)";

@@ -1,6 +1,6 @@
 package lk.ijse.posbackendjavaee.Dao.Impl;
 
-import lk.ijse.posbackendjavaee.Dao.OrderDetailDao;
+import lk.ijse.posbackendjavaee.Dao.Custom.OrderDetailDao;
 import lk.ijse.posbackendjavaee.Entity.OrderDetailEntity;
 
 import java.sql.Connection;

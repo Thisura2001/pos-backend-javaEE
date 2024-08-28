@@ -1,4 +1,4 @@
-package lk.ijse.posbackendjavaee.Dao;
+package lk.ijse.posbackendjavaee.Dao.Custom;
 
 
 import lk.ijse.posbackendjavaee.Dto.ItemDto;

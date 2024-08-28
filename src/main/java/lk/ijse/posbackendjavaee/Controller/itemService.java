@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lk.ijse.posbackendjavaee.Bo.impl.ItemBoImpl;
-import lk.ijse.posbackendjavaee.Dao.Impl.ItemDaoImpl;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
