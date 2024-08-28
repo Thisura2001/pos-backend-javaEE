@@ -63,7 +63,7 @@ public class ItemController extends HttpServlet {
             System.out.println(itemDto);
             boolean saveItem = itemBo.SaveItem(itemDto,connection);
             if (saveItem){
-                writer.write("item Saved Success");
+                writer.write("item Saved Success"+itemDto);
                 resp.setStatus(HttpServletResponse.SC_CREATED);
             }else {
                 writer.write("Try again");
@@ -82,7 +82,7 @@ public class ItemController extends HttpServlet {
             boolean UpdateItem = itemBo.Update(itemDto,connection);
 
             if (UpdateItem){
-                writer.write("Update SuccessFull!!");
+                writer.write("Update SuccessFull!!"+itemDto);
                 resp.setStatus(HttpServletResponse.SC_ACCEPTED);
             }else {
                 writer.write("Try again!");
@@ -100,7 +100,7 @@ public class ItemController extends HttpServlet {
             logger.info("Delete Items");
             boolean deleteItem = itemBo.deleteItem(code,connection);
             if (deleteItem){
-                writer.write("Delete success");
+                writer.write("Delete success  "+code);
                 resp.setStatus(HttpServletResponse.SC_ACCEPTED);
             }else {
                 writer.write("try again!");

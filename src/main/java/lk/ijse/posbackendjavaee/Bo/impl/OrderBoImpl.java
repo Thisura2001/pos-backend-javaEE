@@ -18,29 +18,8 @@ public class OrderBoImpl implements orderBo {
     @Transactional
     @Override
     public boolean SaveOrder(OrderDto orderDto, Connection connection) {
-        try {
-            connection.setAutoCommit(false);
-            boolean saveOrder = orderDao.saveOrder(new OrderEntity(orderDto.getOrderId(),orderDto.getAmount(),orderDto.getNetTotal(),orderDto.getDiscount(),orderDto.getFinalTotal()),connection);
 
-            if (!saveOrder) {
-                connection.rollback();
-                return false;
-            }
-            for (OrderDetailDto orderDetailDto : orderDto.getOrderDetails()) {
-                orderDetailDto.setOrderId(orderDto.getOrderId());
-                boolean saveOrderDetail = orderDetailDao.saveOrderDetail(orderDetailDto,connection);
-                if (!saveOrderDetail) {
-                    connection.rollback();
-                    return false;
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-     for (OrderDetailDto orderDetailDto : orderDto.getOrderDetails()) {
-         orderDetailDao.saveOrderDetail(orderDetailDto,connection);
-     }
-        return true;
+        return orderDao.saveOrder(new OrderEntity(orderDto.getOrderId(), orderDto.getAmount(), orderDto.getNetTotal(), orderDto.getDiscount(), orderDto.getFinalTotal()), connection);
     }
+
 }

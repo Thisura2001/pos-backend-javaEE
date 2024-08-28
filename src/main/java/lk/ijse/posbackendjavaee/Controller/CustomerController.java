@@ -65,7 +65,7 @@ public class CustomerController extends HttpServlet {
             System.out.println(customerDto);
             boolean saveCustomer = customerBo.saveCustomer(customerDto,connection);
             if (saveCustomer){
-                writer.write("Customer Saved!!");
+                writer.write("Customer Saved!!"+customerDto);
                 resp.setStatus(HttpServletResponse.SC_CREATED);
             }else {
                 writer.write("Failed!!");
