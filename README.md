@@ -1,5 +1,5 @@
 
-# JAVAEE POS System Backend
+# JAVA-EE POS System Backend
 
 
 
