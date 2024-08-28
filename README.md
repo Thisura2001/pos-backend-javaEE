@@ -4,9 +4,15 @@ https://documenter.getpostman.com/view/36185945/2sAXjJ5tAH
 
 Description
 
+
+
 This project is built using Jakarta EE for the backend, MySQL as the database, and AJAX (or Fetch API) for handling asynchronous communication between the client and server. The application leverages native SQL for database operations to ensure efficient query handling. Proper logging is implemented across the application, following best practices for logging levels to ensure maintainability and traceability.
 
+
+
 Tech Stack
+
+
 
 Jakarta EE: Provides a robust enterprise platform for developing web applications.
 
@@ -19,7 +25,11 @@ Features
 
 JNDI-based database configuration. AJAX/Fetch API for dynamic content loading. Comprehensive logging strategy with appropriate logging levels.
 
+
+
 Setup & Installation
+
+
 
 Clone the repository:
 
@@ -32,7 +42,11 @@ Build & Deploy: Build the project using your preferred Jakarta EE tool (e.g., Ma
 Access the Application: Once deployed, access the frontend application via your web browser.
 Logging Configuration
 
+
+
 The application employs a robust logging mechanism with different logging levels:
+
+
 
 INFO: General application flow.
 
