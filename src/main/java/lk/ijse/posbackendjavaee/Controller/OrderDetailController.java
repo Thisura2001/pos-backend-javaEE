@@ -7,6 +7,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lk.ijse.posbackendjavaee.Bo.OrderDetailBo;
+import lk.ijse.posbackendjavaee.Bo.impl.OrderDetailBoImpl;
 import lk.ijse.posbackendjavaee.Dao.Impl.OrderDetailDaoImpl;
 import lk.ijse.posbackendjavaee.Dto.OrderDetailDto;
 
@@ -45,12 +47,12 @@ public class OrderDetailController extends HttpServlet {
         }
         try (var writer = resp.getWriter()) {
             logger.info("Save OrderDetail");
-            resp.setContentType("application/json");
             Jsonb jsonb = JsonbBuilder.create();
             OrderDetailDto orderDetailDto = jsonb.fromJson(req.getReader(), OrderDetailDto.class);
+            System.out.println(orderDetailDto);
             jsonb.toJson(orderDetailDto, writer);
 
-            boolean saveOrderDetail = new OrderDetailDaoImpl().saveOrderDetail(orderDetailDto, connection);
+            boolean saveOrderDetail = new OrderDetailBoImpl().saveOrderDetail(orderDetailDto, connection);
             if (saveOrderDetail) {
                 resp.setStatus(HttpServletResponse.SC_OK);
             }

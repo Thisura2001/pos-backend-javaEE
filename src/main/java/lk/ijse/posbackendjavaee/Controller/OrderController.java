@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lk.ijse.posbackendjavaee.Bo.impl.OrderBoImpl;
 import lk.ijse.posbackendjavaee.Dto.OrderDto;
+import lk.ijse.posbackendjavaee.Dto.OrderRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,7 @@ import java.sql.SQLException;
 @WebServlet(urlPatterns = "/orders")
 public class OrderController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    Logger logger = LoggerFactory.getLogger(OrderController.class);
+   public static Logger logger = LoggerFactory.getLogger(OrderController.class);
     Connection connection;
    OrderBoImpl orderBo = new OrderBoImpl();
     @Override
@@ -82,26 +83,35 @@ public class OrderController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (!req.getContentType().startsWith("application/json")||req.getContentType()==null) {
+        if (!req.getContentType().startsWith("application/json") || req.getContentType() == null) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
         }
-        try (var writer = resp.getWriter()){
-            logger.info("Save Order");
+
+        try (var writer = resp.getWriter()) {
+            logger.info("Save Order and Order Details");
+            resp.setContentType("application/json");
+
             Jsonb jsonb = JsonbBuilder.create();
-            OrderDto orderDto = jsonb.fromJson(req.getReader(), OrderDto.class);
-            System.out.println(orderDto);
-            boolean saveOrder = orderBo.SaveOrder(orderDto,connection);
-            if (saveOrder){
-                writer.write("Order saved");
+            // Parse the combined order and order details data
+            OrderRequest orderRequest = jsonb.fromJson(req.getReader(), OrderRequest.class);
+
+            // Save order and order details using OrderBo
+            boolean saveOrder = orderBo.saveOrderWithDetails(orderRequest, connection);
+
+            if (saveOrder) {
+                writer.write("Order and Order Details Saved Successfully");
                 resp.setStatus(HttpServletResponse.SC_CREATED);
-            }else {
-                writer.write("Error saving Order");
+            } else {
+                writer.write("Error saving Order and Order Details");
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
+
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

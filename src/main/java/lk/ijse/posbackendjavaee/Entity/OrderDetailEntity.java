@@ -13,7 +13,6 @@ public class OrderDetailEntity {
     private String itemCode;
     private String qty;
     private String unitPrice;
-    private LocalDate localDate;
     private String customerId;
     private String itemName;
 }
